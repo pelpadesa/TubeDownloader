@@ -1,0 +1,61 @@
+ERROR: [generic] '' is not a valid URL. Set --default-search "ytsearch" (or run  yt-dlp "ytsearch:" ) to search YouTube
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\yt_dlp\extractor\common.py", line 674, in extract
+    ie_result = self._real_extract(url)
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\yt_dlp\extractor\generic.py", line 2555, in _real_extract
+    raise ExtractorError(
+yt_dlp.utils.ExtractorError: '' is not a valid URL. Set --default-search "ytsearch" (or run  yt-dlp "ytsearch:" ) to search YouTube
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\yt_dlp\YoutubeDL.py", line 1485, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\yt_dlp\YoutubeDL.py", line 1561, in __extract_info
+    ie_result = ie.extract(url)
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\yt_dlp\extractor\common.py", line 700, in extract
+    raise type(e)(e.orig_msg, **kwargs)
+yt_dlp.utils.ExtractorError: [generic] '' is not a valid URL. Set --default-search "ytsearch" (or run  yt-dlp "ytsearch:" ) to search YouTube
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\tkinter\__init__.py", line 1921, in __call__
+    return self.func(*args)
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 531, in _clicked
+    self._command()
+  File "c:\Users\namej\Documents\GitHub\TubeDownloader\TubeDownloader\Main.pyw", line 98, in GrabVideo_Callback
+    self.handler.GrabVideo()
+  File "c:\Users\namej\Documents\GitHub\TubeDownloader\TubeDownloader\bin\video_handling.py", line 34, in GrabVideo
+    videoInfo = ytdl.extract_info(video_url, download=False)
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\yt_dlp\YoutubeDL.py", line 1474, in extract_info
+    return self.__extract_info(url, self.get_info_extractor(key), download, extra_info, process)
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\yt_dlp\YoutubeDL.py", line 1503, in wrapper
+    self.report_error(str(e), e.format_traceback())
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\yt_dlp\YoutubeDL.py", line 1004, in report_error
+    self.trouble(f'{self._format_err("ERROR:", self.Styles.ERROR)} {message}', *args, **kwargs)
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\yt_dlp\YoutubeDL.py", line 944, in trouble
+    raise DownloadError(message, exc_info)
+yt_dlp.utils.DownloadError: ERROR: [generic] '' is not a valid URL. Set --default-search "ytsearch" (or run  yt-dlp "ytsearch:" ) to search YouTube
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\tkinter\__init__.py", line 1921, in __call__
+    return self.func(*args)
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\customtkinter\windows\widgets\ctk_button.py", line 531, in _clicked
+    self._command()
+  File "c:\Users\namej\Documents\GitHub\TubeDownloader\TubeDownloader\Main.pyw", line 170, in DownloadThumbnail
+    image_req = get(thumbnailURL)
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py", line 573, in request
+    prep = self.prepare_request(req)
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py", line 484, in prepare_request
+    p.prepare(
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\models.py", line 368, in prepare
+    self.prepare_url(url, params)
+  File "C:\Users\namej\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\models.py", line 439, in prepare_url
+    raise MissingSchema(
+requests.exceptions.MissingSchema: Invalid URL '': No scheme supplied. Perhaps you meant http://?

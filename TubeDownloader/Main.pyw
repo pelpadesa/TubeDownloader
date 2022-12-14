@@ -27,74 +27,71 @@ class MainWindow(customtkinter.CTk):
         self.handler = VideoHandler()
         self.VideoQualities, self.AudioQualities = [], []
 
-        # Main Frame
-        frame_1 = customtkinter.CTkFrame(master = self)
-        frame_1.pack(pady = (10,0), padx = 10, fill = "both", expand = True, anchor="n")
-        self.frame_1 = frame_1
-            # Top Label
-        TopLabel = customtkinter.CTkLabel(master=frame_1, text="Download Video From URL")
-        TopLabel.pack(pady=0, padx=10, anchor="w")
-
-        # Video URL Text Input
-        self.urlEntry = customtkinter.CTkEntry(master=frame_1, placeholder_text="Video URL")
-        self.urlEntry.pack(pady = (0, 0), padx = 10, ipadx = 1000, anchor = "w")
-
-        # Top Button Section
-        TopButtonFrame = customtkinter.CTkFrame(master=frame_1)
-        TopButtonFrame.pack(fill="x", pady=(0,0))
-        TopButtonFrame.grid_columnconfigure(0, weight=1)
-            # Grab Video Button
-        GrabVideo_Button = customtkinter.CTkButton(master = TopButtonFrame, command = self.GrabVideo_Callback, text = "Grab Video", width = 100)
-        GrabVideo_Button.grid(row=1, column=4, sticky="e", pady=10)
-            # Download Thumbnail Button
-        DownloadThumbnail_Button = customtkinter.CTkButton(master = TopButtonFrame, command = self.DownloadThumbnail, text = "Download Thumbnail")
-        DownloadThumbnail_Button.grid(row=1, column=2, sticky="e", pady=10, padx=10)
-
-        # Video Title Label
-        VideoTitle_Label = customtkinter.CTkLabel(master=frame_1, textvariable=self.handler.VideoTitle)
-        VideoTitle_Label.pack(pady=0, padx=10, anchor="w")
-
-        # Load default thumbnail
-        self.image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "./bin")
-        self.Thumbnail = customtkinter.CTkImage(light_image=Image.open(os.path.join(self.image_path, f"DefaultImage.jpg")),size=(127*3,72*3))
-        self.ThumbnailLabel = customtkinter.CTkLabel(master=self.frame_1, text="", image=self.Thumbnail)
-        self.ThumbnailLabel.pack()
-
-        # Start of Resolution/Quality Selection Section
-        frame_2 = customtkinter.CTkFrame(master=frame_1)
-        frame_2.pack(fill="x", pady=(0,0))
-            # MP3/MP4 Selection Button
-        self.segmented_button = customtkinter.CTkSegmentedButton(master=frame_2, values=["MP3", "MP4"], command=self.ModeSwap)
-        self.segmented_button.grid(row=4, column=0, padx=10, pady=10)
-        self.segmented_button.set("MP3")
-            # Resolution Dropdown Menu
-        resolution = custom_CTkComboBox(master=frame_2, values=["No Options Found"], button_color="#3B8ED0", state="readonly")
-        resolution.grid(row=4, column=1, sticky="w", pady=10)
-        resolution.set("Quality (Unset)")
-        resolution._entry.configure(readonlybackground="#343638")
-        self.resolution = resolution
-            # Download Button
-        button_1 = customtkinter.CTkButton(master = frame_2, text="Download", width=100, command=self.Download_Callback)
-        button_1.grid(row=4, column=2, pady=10, padx=(20, 0), sticky="e")
-        self.DownloadButton = button_1
-        # End of Resolution/Quality Selection Section
-
-        # Start of Bottom Status Section
-            # Download Status Message
+        # Initializing UI
+        self.InitializeTop()
+        self.InitializeVideo()
+        self.InitializeSettings()
+        
         statusLabel = customtkinter.CTkLabel(master = self, text="")
         statusLabel.pack(pady=0, padx=10, anchor="w")
         self.statusLabel = statusLabel
-            # Download Progress Bar
+
         progressbar_1 = customtkinter.CTkProgressBar(master = self)
         progressbar_1.pack(pady = 0, padx = 10, fill="x")
         progressbar_1.set(0)
         progressbar_1.configure(mode="determinate")
         self.progressbar_1 = progressbar_1
-        # End of Bottom Status Section
 
         self.previousDir = None
 
+    def InitializeTop(self):
+        frame_1 = customtkinter.CTkFrame(master = self)
+        frame_1.pack(pady = (10,0), padx = 10, fill = "both", expand = True, anchor="n")
+        self.frame_1 = frame_1
 
+        TopLabel = customtkinter.CTkLabel(master=frame_1, text="Download Video From URL")
+        TopLabel.pack(pady=0, padx=10, anchor="w")
+
+        self.urlEntry = customtkinter.CTkEntry(master=frame_1, placeholder_text="Video URL")
+        self.urlEntry.pack(pady = (0, 0), padx = 10, ipadx = 1000, anchor = "w")
+
+        TopButtonFrame = customtkinter.CTkFrame(master=frame_1)
+        TopButtonFrame.pack(fill="x", pady=(0,0))
+        TopButtonFrame.grid_columnconfigure(0, weight=1)
+
+        GrabVideo_Button = customtkinter.CTkButton(master = TopButtonFrame, command = self.GrabVideo_Callback, text = "Grab Video", width = 100)
+        GrabVideo_Button.grid(row=1, column=4, sticky="e", pady=10)
+
+        DownloadThumbnail_Button = customtkinter.CTkButton(master = TopButtonFrame, command = self.DownloadThumbnail, text = "Download Thumbnail")
+        DownloadThumbnail_Button.grid(row=1, column=2, sticky="e", pady=10, padx=10)
+
+    def InitializeVideo(self):
+        VideoTitle_Label = customtkinter.CTkLabel(master=self.frame_1, textvariable=self.handler.VideoTitle)
+        VideoTitle_Label.pack(pady=0, padx=10, anchor="w")
+
+        self.image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "./bin")
+
+        self.Thumbnail = customtkinter.CTkImage(light_image=Image.open(os.path.join(self.image_path, f"DefaultImage.jpg")),size=(127*3,72*3))
+        self.ThumbnailLabel = customtkinter.CTkLabel(master=self.frame_1, text="", image=self.Thumbnail)
+        self.ThumbnailLabel.pack()
+
+    def InitializeSettings(self):
+        frame_2 = customtkinter.CTkFrame(master=self.frame_1)
+        frame_2.pack(fill="x", pady=(0,0))
+
+        self.segmented_button = customtkinter.CTkSegmentedButton(master=frame_2, values=["MP3", "MP4"], command=self.ModeSwap)
+        self.segmented_button.grid(row=4, column=0, padx=10, pady=10)
+        self.segmented_button.set("MP3")
+
+        resolution = custom_CTkComboBox(master=frame_2, values=["No Options Found"], button_color="#3B8ED0", state="readonly")
+        resolution.grid(row=4, column=1, sticky="w", pady=10)
+        resolution.set("Quality (Unset)")
+        resolution._entry.configure(readonlybackground="#343638")
+        self.resolution = resolution
+
+        button_1 = customtkinter.CTkButton(master = frame_2, text="Download", width=100, command=self.Download_Callback)
+        button_1.grid(row=4, column=2, pady=10, padx=(20, 0), sticky="e")
+        self.DownloadButton = button_1
 
     def GrabVideo_Callback(self):
         self.handler.VideoURL.set(self.urlEntry.get())
@@ -105,11 +102,8 @@ class MainWindow(customtkinter.CTk):
         with open("./bin/videoData.json", "r") as videoDataFile:
             videoData = json.loads(videoDataFile.read())
         
-        # This is a bit hacky, but its easier/more performant(?) than doing magic to make hashmaps work.
         self.VideoQualities = []
         self.AudioQualities = []
-        # Iterate through resolutions
-        # Replace any previously existing resolution with the same value
 
         for format in videoData.get("formats")[::-1]:
             format_res = format.get("resolution")
@@ -147,7 +141,6 @@ class MainWindow(customtkinter.CTk):
                 video_format = format.get("format_id")
                 break
                 
-        # self.handler.Download()
         file_type = self.segmented_button.get()
         self.filename = filedialog.asksaveasfilename(initialdir = "./" if self.previousDir is None else self.previousDir,
                         defaultextension = file_type.lower(), title = "Save File As...", filetypes = ((f"{file_type} Files", f"*.{file_type.lower()}"),("All files","*.*")))
@@ -159,8 +152,6 @@ class MainWindow(customtkinter.CTk):
 
         self.downloadThread = Thread(target=self.handler.DownloadVideo, args=(video_format, self.filename))
         self.downloadThread.start()
-
-        #self.handler.DownloadVideo(video_format, self.filename)
 
         pollerThread = Thread(target=self._pollProgress, args=())
         pollerThread.start()
@@ -224,6 +215,7 @@ class MainWindow(customtkinter.CTk):
 
     def Boot(self):
         self.mainloop()
+
 if __name__ == "__main__":  
     app = MainWindow("400x450", "TubeDownloader")
     app.Boot()
