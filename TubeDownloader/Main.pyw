@@ -10,11 +10,11 @@ import json
 import sys
 import os
 
-customtkinter.set_appearance_mode("dark")
-customtkinter.set_default_color_theme("blue")
-
 sys.stderr = open('./bin/logs/err.log', 'w+')
 sys.stdout = open('./bin/logs/out.log', 'w+')
+
+customtkinter.set_appearance_mode("dark")
+customtkinter.set_default_color_theme("blue")
 
 class MainWindow(customtkinter.CTk):
     def __init__(self, geometry, title):
