@@ -1,0 +1,4 @@
+__pycache__
+*.log
+thumbnail_preview*
+TubeDownloader/bin/videoData.json
